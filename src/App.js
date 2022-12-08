@@ -1,25 +1,44 @@
-import logo from './logo.svg';
-import './App.css';
+import React, {useRef, useState} from 'react';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const App = ({onWordAdd}) => {
+   const inputEl= useRef(null);
+   const [newWord, setNewWord] = useState('');
+   const [disable, setDisable] = useState(true);
+
+   const onAddClicked = () => {
+       onWordAdd?.(newWord);
+       setNewWord('');
+   };
+
+   const onChange = ({currentTarget: {value}}) => {
+       setNewWord(value);
+       // A word is valid if it has more than a single char and has no spaces
+       const isInvalidWord = value.length < 2 || /\s/.test(value);
+       setDisable(isInvalidWord);
+   };
+
+   return (
+       <>
+           <input
+               type="text"
+               name="new"
+               required
+               pattern="[Bb]anana|[Cc]herry"
+               ref={inputEl}
+               placeholder="Add word..."
+               value={newWord}
+               onChange={onChange}
+               data-testid="add-word-input"
+           />
+           <button 
+              onClick={onAddClicked} 
+              disabled={disable}
+              data-testid="add-word-button"
+            >
+               +
+           </button>
+       </>
+   );
+};
 
 export default App;
