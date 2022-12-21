@@ -2,23 +2,23 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import App from './App';
 
 describe('AddWord component', () => {
-  it('should render the component onto the screen', () => {
+  test('should render the component onto the screen', () => {
       expect(true).toBeTruthy();
   });
 });
 
-it('should render the component onto the screen', () => {
+test('should render the component onto the screen', () => {
   render(<App/>);
   expect(screen.getByTestId('add-word-input')).toBeInTheDocument();
   expect(screen.getByTestId('add-word-button')).toBeInTheDocument();
 })
 
-it('should have the addWord button disabled on initialization', () => {
+test('should have the addWord button disabled on initialization', () => {
   render(<App/>);
   expect(screen.getByTestId('add-word-button')).toBeDisabled();
 })
 
-it('should enable the add keyword when a valid input is entered', () => {
+test('should enable the add keyword when a valid input is entered', () => {
   render(<App/>);
   expect(screen.getByTestId('add-word-button')).toBeDisabled();
   const input = screen.getByTestId('add-word-input');
@@ -27,7 +27,7 @@ it('should enable the add keyword when a valid input is entered', () => {
   expect(screen.getByTestId('add-word-button')).toBeDisabled();
 })
 
-it('should call the onWordAdd handler (if exists) with the new word upon clicking the Add button', () => {
+test('should call the onWordAdd handler (if exists) with the new word upon clicking the Add button', () => {
   const wordsOnSpy = jest.fn();
   const inputValue = 'matti';
 
@@ -43,7 +43,7 @@ it('should call the onWordAdd handler (if exists) with the new word upon clickin
 
 })
 
-it('should clear the input fiels after clicking the submit button', () => {
+test('should clear the input fiels after clicking the submit button', () => {
 
   render(<App />);
   
